@@ -1,6 +1,9 @@
 'use strict';
-
-let WIDTH_POOL = document.querySelector('.map__pins').offsetWidth;
+let map = document.querySelector('.map');
+let pool = map.querySelector('.map__pins');
+let template = document.querySelector('template').content;
+let pin = template.querySelector('.map__pin');
+let WIDTH_POOL = pool.offsetWidth;
 let x, y;
 
 function generatRandomValue (min, max) {
@@ -68,7 +71,7 @@ function createArrayPosts() {
                 "price": generatRandomValue(1000, 1000000),
                 "type": types[ generatRandomValue(0, types.length-1) ],
                 "rooms": generatRandomValue(1, 5),
-                "guest": generatRandomValue(2, 10),
+                "guest": generatRandomValue(1, 2),
                 "checkin": times[ generatRandomValue(0, times.length - 1) ],
                 "checkout": times[ generatRandomValue(0, times.length - 1) ],
                 "features": features[ generatRandomValue(0, features.length - 1) ],
@@ -87,11 +90,26 @@ function createArrayPosts() {
 
         arrayPosts.push(poster);
     }
-
+    map.classList.remove('map--faded');
     return arrayPosts;
 }
 
-console.log(createArrayPosts());
+function createPins (arr) {
+
+    for (let i = 0; i <= arr.length - 1; i++) {
+        
+        let copyPin = pin.cloneNode(true);
+        copyPin.style = "left:" + arr[i].location.x + "px;" + "top:" + arr[i].location.y + "px;"; 
+        copyPin.querySelector('img').src = arr[i].author.avatar;
+        copyPin.querySelector('img').alt = arr[i].offer.title;
+        pool.appendChild(copyPin);
+        
+    }
+
+}
+
+createPins( createArrayPosts() );
+
 
 
 

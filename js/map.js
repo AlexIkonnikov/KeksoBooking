@@ -1,7 +1,9 @@
 'use strict';
 let map = document.querySelector('.map');
+let filterContainer = map.querySelector('.map__filters-container');
 let pool = map.querySelector('.map__pins');
 let template = document.querySelector('template').content;
+let card = template.querySelector('.map__card');
 let pin = template.querySelector('.map__pin');
 let WIDTH_POOL = pool.offsetWidth;
 let x, y;
@@ -71,7 +73,7 @@ function createArrayPosts() {
                 "price": generatRandomValue(1000, 1000000),
                 "type": types[ generatRandomValue(0, types.length-1) ],
                 "rooms": generatRandomValue(1, 5),
-                "guest": generatRandomValue(1, 2),
+                "guest": generatRandomValue(2, 5),
                 "checkin": times[ generatRandomValue(0, times.length - 1) ],
                 "checkout": times[ generatRandomValue(0, times.length - 1) ],
                 "features": features[ generatRandomValue(0, features.length - 1) ],
@@ -94,6 +96,8 @@ function createArrayPosts() {
     return arrayPosts;
 }
 
+let arrayPosts = createArrayPosts();
+
 function createPins (arr) {
 
     for (let i = 0; i <= arr.length - 1; i++) {
@@ -103,12 +107,31 @@ function createPins (arr) {
         copyPin.querySelector('img').src = arr[i].author.avatar;
         copyPin.querySelector('img').alt = arr[i].offer.title;
         pool.appendChild(copyPin);
-        
+
     }
 
 }
 
-createPins( createArrayPosts() );
+function creeatePost (arr) {
+
+    for (let i = 0; i <= arr.length - 1; i++) {
+        let copyPost = card.cloneNode(true);
+
+        copyPost.querySelector('.popup__title').textContent = arr[i].offer.title;
+        copyPost.querySelector('.popup__text--address').textContent = arr[i].offer.address;
+        copyPost.querySelector('.popup__text--price').textContent = arr[i].offer.price + "₽/ночь";
+        copyPost.querySelector('.popup__text--capacity').textContent = arr[i].offer.rooms + " комнаты для " + arr[i].offer.guest + " гостей";
+        copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + arr[i].offer.checkin + ", выезд после " + arr[i].offer.checkout; 
+        copyPost.querySelector('.popup__features').textContent = arr[i].offer.features;
+        copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;
+
+        map.insertBefore(copyPost, filterContainer);
+    }
+}
+
+createPins(arrayPosts);
+creeatePost(arrayPosts);
+
 
 
 

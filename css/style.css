@@ -374,6 +374,12 @@ textarea:focus {
   margin-bottom: 0.3em;
 }
 
+.popup__pictures {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .popup__pictures li {
   display: inline-block;
   vertical-align: middle;

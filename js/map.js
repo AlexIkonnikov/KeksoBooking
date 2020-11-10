@@ -4,6 +4,7 @@ let filterContainer = map.querySelector('.map__filters-container');
 let pool = map.querySelector('.map__pins');
 let template = document.querySelector('template').content;
 let card = template.querySelector('.map__card');
+let photoList = card.querySelector('.popup__pictures');
 let pin = template.querySelector('.map__pin');
 let WIDTH_POOL = pool.offsetWidth;
 let x, y;
@@ -48,14 +49,12 @@ let features = [
     "conditioner"
 ];
 
-
-
 function createArrayPosts() {
 
     let arrayPosts = [];
 
     for (let i = 0; i <= 7; i++) {
-        x = generatRandomValue(0, WIDTH_POOL);
+        x = generatRandomValue(24, WIDTH_POOL);
         y = generatRandomValue(130, 630);
 
         let poster = {
@@ -79,7 +78,9 @@ function createArrayPosts() {
                 "features": features[ generatRandomValue(0, features.length - 1) ],
                 "description": '',
                 "photos": [
-                    
+                    "img/rooms/bathroom.jpg",
+                    "img/rooms/dizain_interera.jpg",
+                    "img/rooms/bedroom.jpg"  
                 ],
     
             },
@@ -101,12 +102,14 @@ function createArrayPosts() {
 let arrayPosts = createArrayPosts();
 
 function typeConverter (value) {
+
     switch(value) {
         case 'palace': return 'Дворец';
         case 'flat': return 'Квартира';
         case 'house': return 'Дом';
         case 'bungalo': return 'Бунгало';
     }
+
 }
 
 function createPins (arr) {
@@ -123,11 +126,23 @@ function createPins (arr) {
 
 }
 
+function outputPhoto (photoArr) {
+    
+    for (let i = 0; i <= photoArr.length - 1; i++) {
+
+        let photo = photoList.querySelector('li').cloneNode(true);
+        photo.querySelector('img').src = photoArr[i];
+        photoList.appendChild(photo);
+
+    }
+
+}
+
 function creeatePost (arr) {
 
     for (let i = 0; i <= arr.length - 1; i++) {
-        let copyPost = card.cloneNode(true);
 
+        let copyPost = card.cloneNode(true);
         copyPost.querySelector('.popup__avatar').src = arr[i].author.avatar;
         copyPost.querySelector('.popup__title').textContent = arr[i].offer.title;
         copyPost.querySelector('.popup__text--address').textContent = arr[i].offer.address;
@@ -137,8 +152,8 @@ function creeatePost (arr) {
         copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + arr[i].offer.checkin + ", выезд после " + arr[i].offer.checkout; 
         copyPost.querySelector('.popup__features').textContent = arr[i].offer.features;
         /*copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;*/
-
         map.insertBefore(copyPost, filterContainer);
+
     }
 }
 

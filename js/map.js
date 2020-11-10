@@ -95,6 +95,7 @@ function createArrayPosts() {
 
         arrayPosts.push(poster);
     }
+
     map.classList.remove('map--faded');
     return arrayPosts;
 }
@@ -129,10 +130,10 @@ function createPins (arr) {
 function outputPhoto (photoArr) {
     
     for (let i = 0; i <= photoArr.length - 1; i++) {
-
+        let pools = map.querySelectorAll('.popup__pictures');
         let photo = photoList.querySelector('li').cloneNode(true);
         photo.querySelector('img').src = photoArr[i];
-        photoList.appendChild(photo);
+        pools[pools.length - 1].appendChild(photo);
 
     }
 
@@ -153,7 +154,7 @@ function creeatePost (arr) {
         copyPost.querySelector('.popup__features').textContent = arr[i].offer.features;
         /*copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;*/
         map.insertBefore(copyPost, filterContainer);
-
+        outputPhoto(arr[i].offer.photos);
     }
 }
 

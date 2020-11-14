@@ -96,7 +96,6 @@ function createArrayPosts() {
         arrayPosts.push(poster);
     }
 
-    map.classList.remove('map--faded');
     return arrayPosts;
 }
 
@@ -157,11 +156,48 @@ function creeatePost (arr) {
         outputPhoto(arr[i].offer.photos);
     }
 }
-
+/*
 createPins(arrayPosts);
 creeatePost(arrayPosts);
+*/
 
 
 
+/*--------------------------------------------------------------------------------------*/
+let inputs = document.querySelectorAll('fieldset');
+let mainPin = map.querySelector('.map__pin--main');
+let form = document.querySelector('.notice__form');
+
+setDisabled(inputs);
+
+function setDisabled (arrayInputs) {
+
+    for (let i = 0; i <= arrayInputs.length - 1; i++) {
+
+        arrayInputs[i].setAttribute('disabled', true);
+
+    }
+
+}
+
+function unsetDisabled (arrayInputs) {
+
+    for (let i = 0; i <= arrayInputs.length - 1; i++) {
+
+        arrayInputs[i].removeAttribute('disabled');
+
+    }
+
+}
+
+function pageActivation () {
+
+    map.classList.remove('map--faded');
+    form.classList.remove('notice__form--disabled');
+    unsetDisabled(inputs);
+
+}
 
 
+
+mainPin.addEventListener('mouseup', pageActivation);  

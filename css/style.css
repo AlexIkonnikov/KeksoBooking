@@ -248,6 +248,8 @@ textarea:focus {
   height: 65px;
 
   cursor: move;
+
+ /* transform: translate(-32px, -80px);*/
 }
 
 .map__pin--main img {

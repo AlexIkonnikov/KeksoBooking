@@ -7,6 +7,7 @@ let card = template.querySelector('.map__card');
 let photoList = card.querySelector('.popup__pictures');
 let pin = template.querySelector('.map__pin');
 let WIDTH_POOL = pool.offsetWidth;
+let HEIGHT_POOL = pool.offsetHeight;
 let x, y;
 
 function generatRandomValue (min, max) {
@@ -121,7 +122,9 @@ function createPins (arr) {
         copyPin.querySelector('img').src = arr[i].author.avatar;
         copyPin.querySelector('img').alt = arr[i].offer.title;
         pool.appendChild(copyPin);
-
+        copyPin.addEventListener('click', function() {
+            creeatePost( arr[i] );
+        })    
     }
 
 }
@@ -155,11 +158,14 @@ function creeatePost (arr) {
         map.insertBefore(copyPost, filterContainer);
         outputPhoto(arr[i].offer.photos);
     }
+
 }
+
+
+
 /*
 createPins(arrayPosts);
-creeatePost(arrayPosts);
-*/
+creeatePost(arrayPosts);*/
 
 
 
@@ -167,6 +173,10 @@ creeatePost(arrayPosts);
 let inputs = document.querySelectorAll('fieldset');
 let mainPin = map.querySelector('.map__pin--main');
 let form = document.querySelector('.notice__form');
+let address = form.querySelector('#address');
+/*
+mainPin.style.top = '400px';
+mainPin.style.left = WIDTH_POOL/2 + 'px';*/
 
 setDisabled(inputs);
 
@@ -190,12 +200,17 @@ function unsetDisabled (arrayInputs) {
 
 }
 
+
+address.value = WIDTH_POOL/2 + ' ' + HEIGHT_POOL/2;
+
+
+
 function pageActivation () {
 
     map.classList.remove('map--faded');
     form.classList.remove('notice__form--disabled');
     unsetDisabled(inputs);
-
+    createPins(arrayPosts);
 }
 
 

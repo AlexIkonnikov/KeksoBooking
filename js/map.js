@@ -6,6 +6,7 @@ let template = document.querySelector('template').content;
 let card = template.querySelector('.map__card');
 let photoList = card.querySelector('.popup__pictures');
 let pin = template.querySelector('.map__pin');
+let popupClose = template.querySelector('.poup__close');
 let WIDTH_POOL = pool.offsetWidth;
 let HEIGHT_POOL = pool.offsetHeight;
 let x, y;
@@ -141,23 +142,26 @@ function outputPhoto (photoArr) {
 
 }
 
-function creeatePost (arr) {
+function creeatePost (obj) {
 
-    for (let i = 0; i <= arr.length - 1; i++) {
+    let article = map.querySelector('article');
 
-        let copyPost = card.cloneNode(true);
-        copyPost.querySelector('.popup__avatar').src = arr[i].author.avatar;
-        copyPost.querySelector('.popup__title').textContent = arr[i].offer.title;
-        copyPost.querySelector('.popup__text--address').textContent = arr[i].offer.address;
-        copyPost.querySelector('.popup__text--price').textContent = arr[i].offer.price + " ₽/ночь";
-        copyPost.querySelector('.popup__type').textContent = arr[i].offer.type;
-        copyPost.querySelector('.popup__text--capacity').textContent = arr[i].offer.rooms + " комнаты для " + arr[i].offer.guest + " гостей";
-        copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + arr[i].offer.checkin + ", выезд после " + arr[i].offer.checkout; 
-        copyPost.querySelector('.popup__features').textContent = arr[i].offer.features;
-        /*copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;*/
-        map.insertBefore(copyPost, filterContainer);
-        outputPhoto(arr[i].offer.photos);
+    if (article) {
+        let old = map.removeChild(article);  
     }
+
+    let copyPost = card.cloneNode(true);
+    copyPost.querySelector('.popup__avatar').src = obj.author.avatar;
+    copyPost.querySelector('.popup__title').textContent = obj.offer.title;
+    copyPost.querySelector('.popup__text--address').textContent = obj.offer.address;
+    copyPost.querySelector('.popup__text--price').textContent = obj.offer.price + " ₽/ночь";
+    copyPost.querySelector('.popup__type').textContent = obj.offer.type;
+    copyPost.querySelector('.popup__text--capacity').textContent = obj.offer.rooms + " комнаты для " + obj.offer.guest + " гостей";
+    copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + obj.offer.checkin + ", выезд после " + obj.offer.checkout; 
+    copyPost.querySelector('.popup__features').textContent = obj.offer.features;
+    /*copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;*/
+    map.insertBefore(copyPost, filterContainer);
+    outputPhoto(obj.offer.photos);
 
 }
 

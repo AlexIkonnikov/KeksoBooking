@@ -208,18 +208,6 @@ address.value = WIDTH_POOL/2 + ' ' + HEIGHT_POOL/2;
 
 
 
-function pageActivation () {
-
-    map.classList.remove('map--faded');
-    form.classList.remove('notice__form--disabled');
-    unsetDisabled(inputs);
-    createPins(arrayPosts);
-}
-
-
-
-mainPin.addEventListener('mouseup', pageActivation);
-
 let pricePerNight = form.querySelector('#price');
 let typeHouse = form.querySelector('#type');
 let timeIn = form.querySelector('#timein');
@@ -304,3 +292,74 @@ function selectChangeHandler() {
 
 typeHouse.addEventListener('change', changeMinPricePerNight);
 form.addEventListener('change', formClickHandler, true);
+
+
+/*----------------------drag and drope----------------------*/
+
+
+
+function onMouseUpHandler (evt) {
+
+    evt.preventDefault();
+    let drag = false;
+
+    let startCoordinates = {
+        x: evt.clientX,
+        y: evt.clientY
+    };
+
+    function onMouseMove (evt) {
+        evt.preventDefault();
+        drag = true;
+
+        let shift = {
+            x: startCoordinates.x - evt.clientX,
+            y: startCoordinates.y - evt.clientY
+        };
+
+        startCoordinates = {
+            x: evt.clientX,
+            y: evt.clientY
+        };
+        if (mainPin.offsetTop - shift.y <= 130) {
+            mainPin.style.top = 130 + "px";
+
+        } else if (mainPin.offsetTop - shift.y >= 680) {
+            mainPin.style.top = 680 + "px";
+
+        } else if (mainPin.offsetLeft - shift.x <= 30) {
+            mainPin.style.left = 30 + "px";
+        } else if (mainPin.offsetLeft - shift.x >=  1150) {
+            mainPin.style.left = 1150 + "px";
+        } else {
+            mainPin.style.top = (mainPin.offsetTop - shift.y) + "px";
+            mainPin.style.left = (mainPin.offsetLeft - shift.x) + "px";
+            address.value = (mainPin.offsetLeft - shift.x) + ' ' + (mainPin.offsetTop - shift.y);
+        }
+
+    }
+
+    function onMouseUp () {
+
+        if (drag) {
+            
+            pageActivation();
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', pageActivation);
+            address.value = (mainPin.offsetLeft - shift.x) + ' ' + (mainPin.offsetTop - shift.y);
+        }
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+}
+
+
+mainPin.addEventListener('mousedown', onMouseUpHandler);
+
+function pageActivation () {
+    map.classList.remove('map--faded');
+    form.classList.remove('notice__form--disabled');
+    unsetDisabled(inputs);
+    createPins(arrayPosts);
+}

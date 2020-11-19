@@ -113,20 +113,24 @@ function typeConverter (value) {
 
 }
 
+
+let isFirst = true;
 function createPins (arr) {
 
-    for (let i = 0; i <= arr.length - 1; i++) {
+    if (isFirst) {
+        for (let i = 0; i <= arr.length - 1; i++) {
         
-        let copyPin = pin.cloneNode(true);
-        copyPin.style = "left:" + arr[i].location.x + "px;" + "top:" + arr[i].location.y + "px;"; 
-        copyPin.querySelector('img').src = arr[i].author.avatar;
-        copyPin.querySelector('img').alt = arr[i].offer.title;
-        pool.appendChild(copyPin);
-        copyPin.addEventListener('click', function() {
-            creeatePost( arr[i] );
-        })    
+            let copyPin = pin.cloneNode(true);
+            copyPin.style = "left:" + arr[i].location.x + "px;" + "top:" + arr[i].location.y + "px;"; 
+            copyPin.querySelector('img').src = arr[i].author.avatar;
+            copyPin.querySelector('img').alt = arr[i].offer.title;
+            pool.appendChild(copyPin);
+            copyPin.addEventListener('click', function() {
+                creeatePost( arr[i] );
+            })    
+        }
+        isFirst = false;
     }
-
 }
 
 function outputPhoto (photoArr) {
@@ -174,12 +178,9 @@ creeatePost(arrayPosts);*/
 
 /*--------------------------------------------------------------------------------------*/
 let inputs = document.querySelectorAll('fieldset');
-let mainPin = map.querySelector('.map__pin--main');
 let form = document.querySelector('.notice__form');
 let address = form.querySelector('#address');
-/*
-mainPin.style.top = '400px';
-mainPin.style.left = WIDTH_POOL/2 + 'px';*/
+
 
 setDisabled(inputs);
 
@@ -296,70 +297,3 @@ form.addEventListener('change', formClickHandler, true);
 
 /*----------------------drag and drope----------------------*/
 
-
-
-function onMouseUpHandler (evt) {
-
-    evt.preventDefault();
-    let drag = false;
-
-    let startCoordinates = {
-        x: evt.clientX,
-        y: evt.clientY
-    };
-
-    function onMouseMove (evt) {
-        evt.preventDefault();
-        drag = true;
-
-        let shift = {
-            x: startCoordinates.x - evt.clientX,
-            y: startCoordinates.y - evt.clientY
-        };
-
-        startCoordinates = {
-            x: evt.clientX,
-            y: evt.clientY
-        };
-        if (mainPin.offsetTop - shift.y <= 130) {
-            mainPin.style.top = 130 + "px";
-
-        } else if (mainPin.offsetTop - shift.y >= 680) {
-            mainPin.style.top = 680 + "px";
-
-        } else if (mainPin.offsetLeft - shift.x <= 30) {
-            mainPin.style.left = 30 + "px";
-        } else if (mainPin.offsetLeft - shift.x >=  1150) {
-            mainPin.style.left = 1150 + "px";
-        } else {
-            mainPin.style.top = (mainPin.offsetTop - shift.y) + "px";
-            mainPin.style.left = (mainPin.offsetLeft - shift.x) + "px";
-            address.value = (mainPin.offsetLeft - shift.x) + ' ' + (mainPin.offsetTop - shift.y);
-        }
-
-    }
-
-    function onMouseUp () {
-
-        if (drag) {
-            
-            pageActivation();
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', pageActivation);
-            address.value = (mainPin.offsetLeft - shift.x) + ' ' + (mainPin.offsetTop - shift.y);
-        }
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-}
-
-
-mainPin.addEventListener('mousedown', onMouseUpHandler);
-
-function pageActivation () {
-    map.classList.remove('map--faded');
-    form.classList.remove('notice__form--disabled');
-    unsetDisabled(inputs);
-    createPins(arrayPosts);
-}

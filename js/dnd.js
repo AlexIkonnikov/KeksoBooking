@@ -4,6 +4,8 @@
 
     let mainPin = map.querySelector('.map__pin--main');
     let inputs = document.querySelectorAll('fieldset');
+    let address = form.querySelector('#address');
+    address.value = WIDTH_POOL/2 + ' ' + HEIGHT_POOL/2;
 
     setDisabled(inputs);
 
@@ -88,7 +90,7 @@
         map.classList.remove('map--faded');
         form.classList.remove('notice__form--disabled');
         unsetDisabled(inputs);
-        createPins(arrayPosts);
+        window.showPins(window.arrayPosts);
     }
 
 })();

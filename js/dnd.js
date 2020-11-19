@@ -1,8 +1,31 @@
 'use strict';
 
 (function () {
-    
+
     let mainPin = map.querySelector('.map__pin--main');
+    let inputs = document.querySelectorAll('fieldset');
+
+    setDisabled(inputs);
+
+    function setDisabled (arrayInputs) {
+
+        for (let i = 0; i <= arrayInputs.length - 1; i++) {
+
+            arrayInputs[i].setAttribute('disabled', true);
+
+        }
+
+    }
+
+    function unsetDisabled (arrayInputs) {
+
+        for (let i = 0; i <= arrayInputs.length - 1; i++) {
+
+            arrayInputs[i].removeAttribute('disabled');
+
+        }
+
+    }
 
     function onMouseUpHandler (evt) {
 

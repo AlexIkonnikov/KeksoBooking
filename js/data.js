@@ -1,6 +1,7 @@
 'use strict';
 
 (function() {
+    let x, y;
 
     function generatRandomValue (min, max) {
 
@@ -58,7 +59,7 @@
         let arrayPosts = [];
     
         for (let i = 0; i <= 7; i++) {
-            x = generatRandomValue(24, WIDTH_POOL);
+            x = generatRandomValue(24, window.pin.widthPool);
             y = generatRandomValue(130, 630);
     
             let poster = {
@@ -103,6 +104,10 @@
         return arrayPosts;
     }
     
-    window.arrayPosts = createArrayPosts();
+    let arrayPosts = createArrayPosts();
+
+    window.data = {
+       'arrayPosts': arrayPosts, 
+    };
 
 })();

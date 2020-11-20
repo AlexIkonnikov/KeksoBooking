@@ -2,10 +2,10 @@
 
 (function () {
 
-    let mainPin = map.querySelector('.map__pin--main');
+    let mainPin = window.cart.map.querySelector('.map__pin--main');
     let inputs = document.querySelectorAll('fieldset');
-    let address = form.querySelector('#address');
-    address.value = WIDTH_POOL/2 + ' ' + HEIGHT_POOL/2;
+    let address = window.form.form.querySelector('#address');
+    address.value = window.pin.widthPool/2 + ' ' + window.pin.heightPool/2;
 
     setDisabled(inputs);
 
@@ -87,10 +87,10 @@
     mainPin.addEventListener('mousedown', onMouseUpHandler);
     
     function pageActivation () {
-        map.classList.remove('map--faded');
-        form.classList.remove('notice__form--disabled');
+        window.cart.map.classList.remove('map--faded');
+        window.form.form.classList.remove('notice__form--disabled');
         unsetDisabled(inputs);
-        window.showPins(window.arrayPosts);
+        window.pin.showPins(window.data.arrayPosts);
     }
 
 })();

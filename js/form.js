@@ -1,14 +1,18 @@
 'use strict';
 
 (function() {
-
+    
+    let form = document.querySelector('.notice__form');
     let pricePerNight = form.querySelector('#price');
     let typeHouse = form.querySelector('#type');
     let timeIn = form.querySelector('#timein');
     let timeOut = form.querySelector('#timeout');
     let numberOfRooms = form.querySelector('#room_number');
     let numbersOfSeats = form.querySelector('#capacity');
-
+    
+    window.form = {
+        'form': form,
+    };
 
     function changeMinPricePerNight() {
     

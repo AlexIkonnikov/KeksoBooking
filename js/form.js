@@ -2,7 +2,7 @@
 
 (function() {
     
-    let form = document.querySelector('.notice__form');
+    window.form = document.querySelector('.notice__form');
     let pricePerNight = form.querySelector('#price');
     let typeHouse = form.querySelector('#type');
     let timeIn = form.querySelector('#timein');
@@ -10,9 +10,7 @@
     let numberOfRooms = form.querySelector('#room_number');
     let numbersOfSeats = form.querySelector('#capacity');
     
-    window.form = {
-        'form': form,
-    };
+    
 
     function changeMinPricePerNight() {
     

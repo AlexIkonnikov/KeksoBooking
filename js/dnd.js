@@ -4,7 +4,7 @@
 
     let mainPin = window.cart.map.querySelector('.map__pin--main');
     let inputs = document.querySelectorAll('fieldset');
-    let address = window.form.form.querySelector('#address');
+    let address = window.form.querySelector('#address');
     address.value = window.pin.widthPool/2 + ' ' + window.pin.heightPool/2;
 
     setDisabled(inputs);
@@ -88,7 +88,7 @@
     
     function pageActivation () {
         window.cart.map.classList.remove('map--faded');
-        window.form.form.classList.remove('notice__form--disabled');
+        window.form.classList.remove('notice__form--disabled');
         unsetDisabled(inputs);
         window.pin.showPins(window.data.arrayPosts);
     }

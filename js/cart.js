@@ -22,10 +22,10 @@
         copyPost.querySelector('.popup__text--address').textContent = obj.offer.address;
         copyPost.querySelector('.popup__text--price').textContent = obj.offer.price + " ₽/ночь";
         copyPost.querySelector('.popup__type').textContent = obj.offer.type;
-        copyPost.querySelector('.popup__text--capacity').textContent = obj.offer.rooms + " комнаты для " + obj.offer.guest + " гостей";
+        copyPost.querySelector('.popup__text--capacity').textContent = obj.offer.rooms + " комнаты для " + obj.offer.guests + " гостей";
         copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + obj.offer.checkin + ", выезд после " + obj.offer.checkout; 
         copyPost.querySelector('.popup__features').textContent = obj.offer.features;
-        /*copyPost.querySelector('.popup__description').textContent = arr[i].offer.description;*/
+        copyPost.querySelector('.popup__description').textContent = obj.offer.description;
         map.insertBefore(copyPost, filterContainer);
         outputPhoto(obj.offer.photos);
     }

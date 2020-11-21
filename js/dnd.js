@@ -73,7 +73,11 @@
         function onMouseUp () {
     
             if (drag) {
-                pageActivation();
+
+                if (!isPageActive) {
+                    pageActivation();
+                }
+
                 document.removeEventListener('mousemove', onMouseMove);
                 document.removeEventListener('mouseup', pageActivation);
             }
@@ -86,11 +90,17 @@
     
     mainPin.addEventListener('mousedown', onMouseUpHandler);
     
+    function onError (message) {
+        console.log(message);
+    }
+
+    let isPageActive = false;
     function pageActivation () {
         window.cart.map.classList.remove('map--faded');
         window.form.classList.remove('notice__form--disabled');
         unsetDisabled(inputs);
-        window.pin.showPins(window.data.arrayPosts);
+        window.load(onError , window.pin.showPins);
+        isPageActive = true;
     }
 
 })();

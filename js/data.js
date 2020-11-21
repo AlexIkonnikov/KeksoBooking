@@ -1,6 +1,7 @@
 'use strict';
 
 (function() {
+    /*
     let x, y;
 
     function generatRandomValue (min, max) {
@@ -41,7 +42,7 @@
         "washer",
         "elevator",
         "conditioner"
-    ];
+    ];*/
     
     function typeConverter (value) {
     
@@ -53,7 +54,7 @@
         }
     
     }
-    
+    /*
     function createArrayPosts() {
     
         let arrayPosts = [];
@@ -108,6 +109,6 @@
 
     window.data = {
        'arrayPosts': arrayPosts, 
-    };
+    };*/
 
 })();

@@ -12,7 +12,7 @@
         xhr.addEventListener('load', function() {
 
             if (xhr.status === 200) {
-
+                console.log(xhr.status);
                 onSuccses(xhr.response);
 
             } else {
@@ -27,6 +27,8 @@
         xhr.addEventListener('timeout', function() {
             onError('Время ожидания ответа истекло');
         });
+
+        xhr.send();
 
     };
 

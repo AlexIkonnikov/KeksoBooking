@@ -31,7 +31,7 @@
     </div>
 
     <div class="map__filters-container">
-      <form action="#" class="map__filters" autocomplete="off">
+      <form method="POST" action="https://javascript.pages.academy/keksobooking" class="map__filters" autocomplete="off" enctype="multipart/form-data">
         <select name="housing-type" id="housing-type" class="map__filter">
           <option value="any" selected>Любой тип жилья</option>
           <option value="flat">Квартира</option>
@@ -107,7 +107,7 @@
 
       <fieldset class="form__element form__element--wide">
         <label for="address">Адрес</label>
-        <input id="address" name="address" type="text" disabled>
+        <input id="address" name="address" required type="text" readonly>
       </fieldset>
 
       <fieldset class="form__element">

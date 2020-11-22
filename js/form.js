@@ -8,7 +8,8 @@
     let timeIn = form.querySelector('#timein');
     let timeOut = form.querySelector('#timeout');
     let numberOfRooms = form.querySelector('#room_number');
-    let numbersOfSeats = form.querySelector('#capacity');
+    let numbersOfSeats = form.querySelector('#capacity');    
+    
     
     
 
@@ -84,6 +85,26 @@
         }
     
     }
+
+    let onError = function (message) {
+
+        console.log(message);
+
+    };
+
+    let onSuccses = function(message) {
+
+        console.log(message);
+
+    }
+
+
+
+    form.addEventListener('submit', function(evt) {
+        evt.preventDefault();
+        let formData = new FormData(window.form);
+        window.save(onError, onSuccses, formData);
+    });
     
     typeHouse.addEventListener('change', changeMinPricePerNight);
     form.addEventListener('change', formClickHandler, true);

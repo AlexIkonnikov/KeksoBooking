@@ -5,7 +5,7 @@
     let mainPin = window.cart.map.querySelector('.map__pin--main');
     let inputs = document.querySelectorAll('fieldset');
     let address = window.form.querySelector('#address');
-    address.value = window.pin.widthPool/2 + ' ' + window.pin.heightPool/2;
+    address.value = window.pin.widthPool/2 + ', ' + window.pin.heightPool/2;
 
     setDisabled(inputs);
 
@@ -65,7 +65,7 @@
             } else {
                 mainPin.style.top = (mainPin.offsetTop - shift.y) + "px";
                 mainPin.style.left = (mainPin.offsetLeft - shift.x) + "px";
-                address.value = (mainPin.offsetLeft - shift.x) + ' ' + (mainPin.offsetTop - shift.y);
+                address.value = (mainPin.offsetLeft - shift.x) + ', ' + (mainPin.offsetTop - shift.y);
             }
     
         }

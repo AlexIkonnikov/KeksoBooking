@@ -8,6 +8,17 @@
     let photoList = card.querySelector('.popup__pictures');
     let filterContainer = map.querySelector('.map__filters-container');
 
+    function typeConverter (value) {
+    
+        switch(value) {
+            case 'palace': return 'Дворец';
+            case 'flat': return 'Квартира';
+            case 'house': return 'Дом';
+            case 'bungalo': return 'Бунгало';
+        }
+    
+    }
+
     function showPost(obj) {
     
         let article = map.querySelector('article');
@@ -21,7 +32,7 @@
         copyPost.querySelector('.popup__title').textContent = obj.offer.title;
         copyPost.querySelector('.popup__text--address').textContent = obj.offer.address;
         copyPost.querySelector('.popup__text--price').textContent = obj.offer.price + " ₽/ночь";
-        copyPost.querySelector('.popup__type').textContent = obj.offer.type;
+        copyPost.querySelector('.popup__type').textContent = typeConverter(obj.offer.type);
         copyPost.querySelector('.popup__text--capacity').textContent = obj.offer.rooms + " комнаты для " + obj.offer.guests + " гостей";
         copyPost.querySelector('.popup__text--time').textContent = "Заезд после " + obj.offer.checkin + ", выезд после " + obj.offer.checkout; 
         copyPost.querySelector('.popup__features').textContent = obj.offer.features;

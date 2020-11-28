@@ -7,7 +7,7 @@
     let address = window.form.querySelector('#address');
     address.value = window.pin.widthPool/2 + ', ' + window.pin.heightPool/2;
 
-    setDisabled(inputs);
+    setDisabled (inputs);
 
     function setDisabled (arrayInputs) {
 
@@ -74,7 +74,7 @@
     
             if (drag) {
 
-                if (!isPageActive) {
+                if (isPageActive === false) {
                     pageActivation();
                 }
 
@@ -90,16 +90,14 @@
     
     mainPin.addEventListener('mousedown', onMouseUpHandler);
     
-    function onError (message) {
-        console.log(message);
-    }
 
     let isPageActive = false;
+
     function pageActivation () {
         window.cart.map.classList.remove('map--faded');
         window.form.classList.remove('notice__form--disabled');
+        window.load(window.onError, window.pin.preparationAds);
         unsetDisabled(inputs);
-        window.load(onError , window.pin.showPins);
         isPageActive = true;
     }
 

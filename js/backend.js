@@ -39,4 +39,9 @@
         createXhr('POST', URL.save, onError, onSuccses).send(data);
     };
 
+    window.onError = function (message) {
+        console.log(message);
+    }
+
+
 })();

@@ -1,0 +1,160 @@
+'use strict';
+
+(function(){
+    let selects = document.querySelectorAll('.map__filters-container select');
+
+    let housingType = document.querySelector('#housing-type');
+    let housingPrice = document.querySelector('#housing-price');
+    let housingRooms = document.querySelector('#housing-rooms');
+    let housingGuests = document.querySelector('#housing-guests');
+
+    let inputs = document.querySelectorAll('.map__filters-container input');
+    let filterWifi = document.querySelector('#filter-wifi');
+    let filterDishwasher = document.querySelector('#filter-dishwasher');
+    let filterParking = document.querySelector('#filter-parking');
+    let filterWasher = document.querySelector('#filter-washer');
+    let filterElevator = document.querySelector('#filter-elevator');
+    let filterConditioner = document.querySelector('#filter-conditioner');
+
+    window.load(window.onerror, onSuccses);
+
+    for (let i = 0; i < selects.length; i++) {
+        selects[i].addEventListener('change', updateMap);
+    }
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('change', updateMap);
+    }
+
+    let ads = [];
+
+    function onSuccses (data) {
+        ads = data;
+    }
+
+    function cleanMap () {
+        let node = document.querySelectorAll('.map__pin--main ~ .map__pin');
+        for(let i = 0; i < node.length; i++) {
+            node[i].remove();
+        }
+    }
+    
+    function updateMap() {
+        cleanMap();
+        let typeHouse = ads.filter(function(it){
+            if(housingType.value == 'any') {
+                return it;
+            } else {
+               return it.offer.type == housingType.value;
+            } 
+        });
+
+        let priceHouse = typeHouse.filter(function(it){
+            if (housingPrice.value == 'any') {
+                return it;
+            } else if(housingPrice.value == 'low'){
+                return (it.offer.price < 10000); 
+            } else if(housingPrice.value == 'middle'){
+                return (it.offer.price >= 10000 && it.offer.price < 50000);
+            } else {
+                return (it.offer.price >= 50000);
+            } 
+        });
+
+        let roomsHouse = priceHouse.filter(function(it){
+            if (housingRooms.value == 'any') {
+                return it;
+            } else {
+                return it.offer.rooms == housingRooms.value;
+            }
+        });
+
+        let guestsHouse = roomsHouse.filter(function(it){
+            if (housingGuests.value == 'any') {
+                return it;
+            } else {
+                return it.offer.guests == housingGuests.value;
+            }
+        });
+
+        let wifi = guestsHouse.filter(function(it){
+            if (filterWifi.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterWifi.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        let dishWasher = wifi.filter(function(it){
+            if (filterDishwasher.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterDishwasher.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        let parking = dishWasher.filter(function(it){
+            if (filterParking.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterParking.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        let washer = parking.filter(function(it){
+            if (filterWasher.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterWasher.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        let elevator = washer.filter(function(it){
+            if (filterElevator.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterElevator.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        let conditioner = elevator.filter(function(it){
+            if (filterConditioner.checked) {
+                for(let i = 0; i < it.offer.features.length; i++) {
+                    if(it.offer.features[i] == filterConditioner.value) {
+                        return true;
+                    }
+                }
+            } else {
+                return it;
+            }
+        });
+
+        
+
+    
+        let newArray = conditioner;
+        window.pin.preparationAds(newArray);
+    }
+
+
+})();

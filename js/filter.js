@@ -18,12 +18,23 @@
 
     window.load(window.onerror, onSuccses);
 
+    let timer;
     for (let i = 0; i < selects.length; i++) {
-        selects[i].addEventListener('change', updateMap);
+        selects[i].addEventListener('change', function(){
+            if(timer) {
+                clearInterval(timer);
+            }    
+            timer = setTimeout(updateMap, 400);
+        });
     }
 
     for (let i = 0; i < inputs.length; i++) {
-        inputs[i].addEventListener('change', updateMap);
+        inputs[i].addEventListener('change', function(){
+            if(timer) {
+                clearInterval(timer);
+            }
+            timer = setTimeout(updateMap, 400);
+        });
     }
 
     let ads = [];
@@ -148,9 +159,6 @@
                 return it;
             }
         });
-
-        
-
     
         let newArray = conditioner;
         window.pin.preparationAds(newArray);

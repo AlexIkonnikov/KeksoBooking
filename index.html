@@ -186,14 +186,15 @@
         <textarea id="description" name="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
       </fieldset>
 
-      <fieldset class="form__element form__element--wide">
+      <fieldset class="form__element form__element--wide form__element--prev">
         <label>Фотографии жилья</label>
         <div class="form__photo-container">
           <div class="upload">
-            <input type="file" id="images">
+            <input type="file" id="images" multiple>
             <label for="images" class="drop-zone">Загрузите или&nbsp;перетащите сюда фото</label>
           </div>
         </div>
+        <div class="preview-container"></div>
       </fieldset>
 
       <fieldset class="form__element form__element--submit">
@@ -250,5 +251,6 @@
 <script src="js/form.js"></script>
 <script src="js/dnd.js"></script>
 <script src="js/filter.js"></script>
+<script src="js/file.js"></script>
 </body>
 </html>

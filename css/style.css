@@ -709,3 +709,17 @@ textarea:focus {
 .footer-social-item-vk {
   background-position: -10px -10px;
 }
+
+.form__element--prev img {
+  width: 50px;
+  height: auto;
+  object-fit: cover;
+  border: 2px dotted tomato;
+  border-radius: 10px;
+}
+
+.preview-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}

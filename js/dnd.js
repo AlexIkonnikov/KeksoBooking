@@ -67,13 +67,13 @@
             let mainPinPosition = {
                 x: mainPin.offsetLeft - shift.x,
                 y: mainPin.offsetTop - shift.y
-              };
+            };
 
             let border = {
                 TOP: dragLimit.y.min + mainPin.offsetHeight,
                 BOTTOM: dragLimit.y.max - mainPin.offsetHeight,
-                LEFT: dragLimit.x.min,
-                RIGHT: dragLimit.x.max
+                LEFT: dragLimit.x.min + mainPin.offsetWidth/2,
+                RIGHT: dragLimit.x.max - mainPin.offsetWidth/2
             }
 
             if(mainPinPosition.x >= border.LEFT && mainPinPosition.x <= border.RIGHT ) {

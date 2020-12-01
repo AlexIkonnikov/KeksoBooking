@@ -18,33 +18,36 @@
         }
     }
 
-    setDisabled (inputs);
-
-    function setDisabled (arrayInputs) {
-
-        for (let i = 0; i <= arrayInputs.length - 1; i++) {
-
-            arrayInputs[i].setAttribute('disabled', true);
-
-        }
-
+    function deactivateForm (arrayInputs) {
+        arrayInputs.forEach(function (it) {
+            it.setAttribute('disabled', true);
+        });
+        window.form.classList.add('notice__form--disabled');
     }
 
-    function unsetDisabled (arrayInputs) {
+    function activateForm (arrayInputs) {
+        arrayInputs.forEach(function (it) {
+            it.removeAttribute('disabled');
+        });
+        window.form.classList.remove('notice__form--disabled');
+    }
 
-        for (let i = 0; i <= arrayInputs.length - 1; i++) {
+    function mapActivation () {
+        window.cart.map.classList.remove('map--faded');
+        window.load(window.onError, window.pin.preparationAds);
+    }
 
-            arrayInputs[i].removeAttribute('disabled');
-
-        }
-
+    function pageActivation () {
+        mapActivation();
+        activateForm(inputs);
+        mainPin.removeEventListener('mouseup', pageActivation);
     }
 
     function onMouseUpHandler (evt) {
 
         evt.preventDefault();
-        let drag = false;
-    
+        let drag = false; 
+
         let startCoordinates = {
             x: evt.clientX,
             y: evt.clientY
@@ -53,7 +56,7 @@
         function onMouseMove (evt) {
             evt.preventDefault();
             drag = true;
-    
+            
             let shift = {
                 x: startCoordinates.x - evt.clientX,
                 y: startCoordinates.y - evt.clientY
@@ -76,11 +79,11 @@
                 RIGHT: dragLimit.x.max - mainPin.offsetWidth/2
             }
 
-            if(mainPinPosition.x >= border.LEFT && mainPinPosition.x <= border.RIGHT ) {
+            if (mainPinPosition.x >= border.LEFT && mainPinPosition.x <= border.RIGHT ) {
                 mainPin.style.left = (mainPinPosition.x) + "px";
             }
 
-            if(mainPinPosition.y >= border.TOP && mainPinPosition.y <= border.BOTTOM ) {
+            if (mainPinPosition.y >= border.TOP && mainPinPosition.y <= border.BOTTOM ) {
                 mainPin.style.top = (mainPinPosition.y) + "px";
             }
 
@@ -90,15 +93,9 @@
     
         function onMouseUp () {
     
-            if (drag) {
-
-                if (isPageActive === false) {
-                    pageActivation();
-                }
-
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', pageActivation);
-            }
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', pageActivation);
+            
         }
     
         document.addEventListener('mousemove', onMouseMove);
@@ -107,16 +104,6 @@
     
     
     mainPin.addEventListener('mousedown', onMouseUpHandler);
-    
-
-    let isPageActive = false;
-
-    function pageActivation () {
-        window.cart.map.classList.remove('map--faded');
-        window.form.classList.remove('notice__form--disabled');
-        window.load(window.onError, window.pin.preparationAds);
-        unsetDisabled(inputs);
-        isPageActive = true;
-    }
-
+    mainPin.addEventListener('mouseup', pageActivation);
+    deactivateForm(inputs);
 })();

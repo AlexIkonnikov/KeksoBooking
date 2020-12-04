@@ -84,10 +84,6 @@ textarea:focus {
   box-shadow: 0 0 4px 1px #ff6547;
 }
 
-.hidden {
-  display: none;
-}
-
 .visuallyhidden {
   position: absolute;
 
@@ -722,4 +718,39 @@ textarea:focus {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.success {
+  min-width: 500px;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: black;
+  opacity: 0.7;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  margin-left: -250px;
+  z-index: 10;
+}
+
+.success__text {
+  margin: 0;
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+}
+
+.success__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color:black;
+}
+
+.hidden {
+  display: none;
 }

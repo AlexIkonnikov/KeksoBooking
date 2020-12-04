@@ -8,34 +8,45 @@
     let timeIn = form.querySelector('#timein');
     let timeOut = form.querySelector('#timeout');
     let numberOfRooms = form.querySelector('#room_number');
-    let numbersOfSeats = form.querySelector('#capacity');    
-    
-    
-    
+    let numbersOfSeats = form.querySelector('#capacity');
+    let sendingResultWindow = document.querySelector('.success');
+    let sendingResulText = sendingResultWindow.querySelector('.success__text');
+    let sendingResultButton = sendingResultWindow.querySelector('.success__close');
+    let formResetbutton = form.querySelector('.form__reset');
+    let ESC_KEYCODE = 27;
 
-    function changeMinPricePerNight() {
+    formResetbutton.addEventListener('click', function () {
+        window.dnd.pageReset();
+    });
+
+    function onKeyDownHandler (evt) {
+        if (evt.keyCode == ESC_KEYCODE) {
+            sendingResultWindow.classList.add('hidden');
+            document.removeEventListener('keydown', onKeyDownHandler);
+        }
+    }
+
+    let houseInfo = {
+        bungalo: 0,
+        flat: 1000,
+        house: 5000,
+        palace: 100000
+    }
+
+    function showSendingResultWindow (text) {
+        sendingResultWindow.classList.remove('hidden');
+        sendingResulText.textContent = text;
+        sendingResultButton.addEventListener('click', closeSendingResultWindow);
+    }
+
+    function closeSendingResultWindow () {
+        sendingResultWindow.classList.add('hidden');
+    }
     
-        switch(typeHouse.value) {
-            case 'bungalo': 
-                pricePerNight.setAttribute('min', 0); 
-                pricePerNight.setAttribute('placeholder', 0);
-                break;
-    
-            case 'flat':
-                pricePerNight.setAttribute('min', 1000); 
-                pricePerNight.setAttribute('placeholder', 1000);
-                break;
-            
-            case 'house':
-                pricePerNight.setAttribute('min', 5000); 
-                pricePerNight.setAttribute('placeholder', 5000);
-                break;
-                
-            case 'palace':
-                pricePerNight.setAttribute('min', 10000); 
-                pricePerNight.setAttribute('placeholder', 10000);
-                break; 
-        }       
+    function changeMinPricePerNight(evt) {
+
+        pricePerNight.setAttribute('min', houseInfo[evt.target.value]);
+        pricePerNight.setAttribute('placeholder', houseInfo[evt.target.value]);
     }
     
     function synchTime(time) {
@@ -48,12 +59,8 @@
     
     function formClickHandler(evt) {
         if (evt.target == timeIn || evt.target == timeOut){
-    
             synchTime(evt.target);
-    
-        } else if (evt.target == numberOfRooms || evt.target == numbersOfSeats) {
-    
-        }
+        } 
     }
     
     numberOfRooms.addEventListener('change' , selectChangeHandler);
@@ -87,16 +94,14 @@
     }
 
     let onError = function (message) {
-
-        console.log(message);
-
+        showSendingResultWindow(message);
     };
 
-    let onSuccses = function(message) {
-
-        console.log(message);
+    let onSuccses = function () {
+        window.dnd.pageReset();
+        showSendingResultWindow('Отправка прошла успешно!');
+        document.addEventListener('keydown', onKeyDownHandler);
     }
-
 
 
     form.addEventListener('submit', function(evt) {

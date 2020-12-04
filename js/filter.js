@@ -1,21 +1,45 @@
 'use strict';
 
 (function(){
-    let selects = document.querySelectorAll('.map__filters-container select');
+    window.filterForm = document.querySelector('.map__filters');
+    let selects = filterForm.querySelectorAll('.map__filters-container select');
 
-    let housingType = document.querySelector('#housing-type');
-    let housingPrice = document.querySelector('#housing-price');
-    let housingRooms = document.querySelector('#housing-rooms');
-    let housingGuests = document.querySelector('#housing-guests');
+    let housingType = filterForm.querySelector('#housing-type');
+    let housingPrice = filterForm.querySelector('#housing-price');
+    let housingRooms = filterForm.querySelector('#housing-rooms');
+    let housingGuests = filterForm.querySelector('#housing-guests');
 
-    let inputs = document.querySelectorAll('.map__filters-container input');
-    let filterWifi = document.querySelector('#filter-wifi');
-    let filterDishwasher = document.querySelector('#filter-dishwasher');
-    let filterParking = document.querySelector('#filter-parking');
-    let filterWasher = document.querySelector('#filter-washer');
-    let filterElevator = document.querySelector('#filter-elevator');
-    let filterConditioner = document.querySelector('#filter-conditioner');
+    let inputs = filterForm.querySelectorAll('.map__filters-container input');
+    let filterWifi = filterForm.querySelector('#filter-wifi');
+    let filterDishwasher = filterForm.querySelector('#filter-dishwasher');
+    let filterParking = filterForm.querySelector('#filter-parking');
+    let filterWasher = filterForm.querySelector('#filter-washer');
+    let filterElevator = filterForm.querySelector('#filter-elevator');
+    let filterConditioner = filterForm.querySelector('#filter-conditioner');
 
+    function disabledElements (array) {
+        array.forEach( function (it) {
+            it.setAttribute('disabled', true);
+        });
+    }
+
+    function activeElements (array) {
+        array.forEach( function (it) {
+            it.removeAttribute('disabled');
+        });
+    }
+
+    function activationForm() {
+        activeElements(inputs);
+        activeElements(selects);
+    }
+
+    function disabledForm () {
+        disabledElements(inputs);
+        disabledElements(selects);
+    }
+
+    disabledForm();
     window.load(window.onerror, onSuccses);
 
     let timer;
@@ -41,6 +65,7 @@
 
     function onSuccses (data) {
         ads = data;
+        activationForm();
     }
 
     function cleanMap () {
@@ -48,6 +73,7 @@
         for(let i = 0; i < node.length; i++) {
             node[i].remove();
         }
+        window.pin.closeCart();
     }
     
     function updateMap() {

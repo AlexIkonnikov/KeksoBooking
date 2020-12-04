@@ -34,6 +34,12 @@
         copyPost.querySelector('.popup__description').textContent = obj.offer.description;
         map.insertBefore(copyPost, filterContainer);
         outputPhoto(obj.offer.photos);
+        let collection = copyPost.children;
+        for (let i = 0; i < collection.length; i++) {
+            if (collection[i].textContent == '') {
+                collection[i].style.display = 'none';
+            }
+        }
     }
 
     function outputPhoto (photoArr) {

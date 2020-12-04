@@ -5,7 +5,9 @@
     let mainPin = window.cart.map.querySelector('.map__pin--main');
     let inputs = document.querySelectorAll('fieldset');
     let address = window.form.querySelector('#address');
-    address.value = window.pin.widthPool/2 + ', ' + window.pin.heightPool/2;
+    let beginLeft = mainPin.offsetLeft;
+    let beginTop = mainPin.offsetTop;
+    address.value = beginLeft + ', ' + beginTop;
 
     let dragLimit = {
         x: {
@@ -32,6 +34,22 @@
         window.form.classList.remove('notice__form--disabled');
     }
 
+    function resetForm () {
+        window.form.reset();
+        address.value = parseInt(mainPin.style.left) + ' ' + parseInt(mainPin.style.top);
+        mainPin.style.left = beginLeft + 'px';
+        mainPin.style.top = beginTop + 'px';
+    }
+
+    function mapReset() {
+        window.cart.map.classList.add('map--faded');
+        if (document.querySelector('.map article')) {
+            document.querySelector('.map article').remove();
+        }
+        mainPin.addEventListener('mouseup', pageActivation);
+        window.pin.deletePins();
+    }
+
     function mapActivation () {
         window.cart.map.classList.remove('map--faded');
         window.load(window.onError, window.pin.preparationAds);
@@ -41,6 +59,13 @@
         mapActivation();
         activateForm(inputs);
         mainPin.removeEventListener('mouseup', pageActivation);
+    }
+
+    function pageReset () {
+        window.filterForm.reset();
+        deactivateForm(inputs);
+        mapReset();
+        resetForm();       
     }
 
     function onMouseUpHandler (evt) {
@@ -92,10 +117,8 @@
         }
     
         function onMouseUp () {
-    
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', pageActivation);
-            
         }
     
         document.addEventListener('mousemove', onMouseMove);
@@ -106,4 +129,8 @@
     mainPin.addEventListener('mousedown', onMouseUpHandler);
     mainPin.addEventListener('mouseup', pageActivation);
     deactivateForm(inputs);
+
+    window.dnd = {
+        'pageReset': pageReset
+    }
 })();

@@ -16,10 +16,16 @@
     }
 
     function closeCart () {
+        
         let article = document.querySelector('article');
         if (article) {
             window.cart.map.removeChild(article);
         }
+    }
+
+    function afterLoad (data) {
+        preparationAds (data);
+        activeFilter(data);
     }
 
     function preparationAds(arr) {
@@ -60,7 +66,8 @@
         'renderPins': renderPin,
         'preparationAds': preparationAds,
         'deletePins': deletePins,
-        'closeCart': closeCart
+        'closeCart': closeCart,
+        'afterLoad': afterLoad
     };
 
 })();

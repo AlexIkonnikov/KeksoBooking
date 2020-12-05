@@ -16,7 +16,7 @@
     let filterWasher = filterForm.querySelector('#filter-washer');
     let filterElevator = filterForm.querySelector('#filter-elevator');
     let filterConditioner = filterForm.querySelector('#filter-conditioner');
-
+    let ads = [];
     function disabledElements (array) {
         array.forEach( function (it) {
             it.setAttribute('disabled', true);
@@ -40,7 +40,11 @@
     }
 
     disabledForm();
-    window.load(window.onerror, onSuccses);
+
+    window.activeFilter = function (data) {
+        ads = data;
+        activationForm();
+    }
 
     let timer;
     for (let i = 0; i < selects.length; i++) {
@@ -59,13 +63,6 @@
             }
             timer = setTimeout(updateMap, 400);
         });
-    }
-
-    let ads = [];
-
-    function onSuccses (data) {
-        ads = data;
-        activationForm();
     }
 
     function cleanMap () {

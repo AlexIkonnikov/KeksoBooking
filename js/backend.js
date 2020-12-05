@@ -43,5 +43,11 @@
         console.log(message);
     }
 
+    window.backend = {
+        load: load,
+        save: save,
+        onError: onError
+    }
+
 
 })();

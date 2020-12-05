@@ -53,7 +53,7 @@
 
     function mapActivation () {
         window.cart.map.classList.remove('map--faded');
-        window.load(window.onError, window.pin.preparationAds);
+        window.backend.load(window.onError, window.pin.afterLoad);
     }
 
     function pageActivation () {

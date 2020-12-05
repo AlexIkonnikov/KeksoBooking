@@ -107,7 +107,7 @@
     form.addEventListener('submit', function(evt) {
         evt.preventDefault();
         let formData = new FormData(window.form);
-        window.save(onError, onSuccses, formData);
+        window.backend.save(onError, onSuccses, formData);
     });
     
     typeHouse.addEventListener('change', changeMinPricePerNight);

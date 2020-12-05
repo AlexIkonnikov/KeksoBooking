@@ -3,6 +3,7 @@
 (function () {
 
     let mainPin = window.cart.map.querySelector('.map__pin--main');
+    let PIN_TAIL = 18;
     let inputs = document.querySelectorAll('fieldset');
     let address = window.form.querySelector('#address');
     let beginLeft = mainPin.offsetLeft;
@@ -12,11 +13,11 @@
     let dragLimit = {
         x: {
             min:0,
-            max:1200
+            max:window.pin.widthPool
         },
         y: {
-            min:0,
-            max:750
+            min:130 - PIN_TAIL - mainPin.offsetWidth,
+            max:window.pin.heightPool
         }
     }
 
@@ -36,7 +37,7 @@
 
     function resetForm () {
         window.form.reset();
-        address.value = parseInt(mainPin.style.left) + ' ' + parseInt(mainPin.style.top);
+        address.value = parseInt(beginLeft) + ' ' + parseInt(beginTop);
         mainPin.style.left = beginLeft + 'px';
         mainPin.style.top = beginTop + 'px';
     }
@@ -98,8 +99,8 @@
             };
 
             let border = {
-                TOP: dragLimit.y.min + mainPin.offsetHeight,
-                BOTTOM: dragLimit.y.max - mainPin.offsetHeight,
+                TOP: dragLimit.y.min + mainPin.offsetHeight + PIN_TAIL,
+                BOTTOM: dragLimit.y.max,
                 LEFT: dragLimit.x.min + mainPin.offsetWidth/2,
                 RIGHT: dragLimit.x.max - mainPin.offsetWidth/2
             }

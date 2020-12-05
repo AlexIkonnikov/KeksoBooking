@@ -245,7 +245,7 @@ textarea:focus {
 
   cursor: move;
 
- /* transform: translate(-32px, -80px);*/
+ transform: translate(-32px, -80px);
 }
 
 .map__pin--main img {
@@ -723,6 +723,7 @@ textarea:focus {
 .success {
   min-width: 500px;
   min-height: 200px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

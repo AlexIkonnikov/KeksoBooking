@@ -75,6 +75,7 @@
     
     function updateMap() {
         cleanMap();
+
         let typeHouse = ads.filter(function(it){
             if(housingType.value == 'any') {
                 return it;
@@ -110,6 +111,9 @@
                 return it.offer.guests == housingGuests.value;
             }
         });
+
+        
+
 
         let wifi = guestsHouse.filter(function(it){
             if (filterWifi.checked) {
@@ -186,6 +190,5 @@
         let newArray = conditioner;
         window.pin.preparationAds(newArray);
     }
-
 
 })();

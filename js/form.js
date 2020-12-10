@@ -23,6 +23,16 @@
         if (evt.keyCode == ESC_KEYCODE) {
             sendingResultWindow.classList.add('hidden');
             document.removeEventListener('keydown', onKeyDownHandler);
+            document.removeEventListener('click', onClickHandler);
+            
+        }
+    }
+
+    function onClickHandler (evt) {
+        if (!(evt.target.closest('.success'))) {
+            sendingResultWindow.classList.add('hidden');
+            document.removeEventListener('keydown', onKeyDownHandler);
+            document.removeEventListener('click', onClickHandler);
         }
     }
 
@@ -101,6 +111,7 @@
         window.dnd.pageReset();
         showSendingResultWindow('Отправка прошла успешно!');
         document.addEventListener('keydown', onKeyDownHandler);
+        document.addEventListener('click', onClickHandler);
     }
 
 
